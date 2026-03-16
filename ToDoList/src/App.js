@@ -92,7 +92,7 @@ class App extends Component {
 
           <ul>
 
-            {todos.map((todo) => (
+            {todos && todos.length > 0 && todos.map((todo) => (
 
               <li key={todo.id}>
 
