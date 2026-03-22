@@ -16,7 +16,7 @@ function App() {
     } catch (error) {
       console.error("Error:", error);
       setQuote("Failed to load quote");
-      setAuthor("System");
+      setAuthor("Unknown");
     }
   };
 
