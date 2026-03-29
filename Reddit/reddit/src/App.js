@@ -2,35 +2,28 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function RedditFeed() {
-  // 👤 user (محفوظ)
   const [activeUser, setActiveUser] = useState(() => {
     return localStorage.getItem("redditUser") || "";
   });
 
-  // 👤 input مؤقت
   const [nameInput, setNameInput] = useState("");
 
-  // 📝 posts
   const [postList, setPostList] = useState(() => {
     const saved = localStorage.getItem("myRedditPosts");
     return saved ? JSON.parse(saved) : [];
   });
 
   const [draftPost, setDraftPost] = useState("");
-
-  // حفظ اليوزر
   useEffect(() => {
     if (activeUser) {
       localStorage.setItem("redditUser", activeUser);
     }
   }, [activeUser]);
 
-  // حفظ البوستات
   useEffect(() => {
     localStorage.setItem("myRedditPosts", JSON.stringify(postList));
   }, [postList]);
 
-  // ➕ إضافة بوست
   const addNewPost = () => {
     if (!draftPost.trim()) return;
 
@@ -45,7 +38,6 @@ function RedditFeed() {
     setDraftPost("");
   };
 
-  // ⬆️ upvote
   const increaseUpvote = (id) => {
     const updated = postList.map((item) =>
       item.id === id
@@ -55,12 +47,10 @@ function RedditFeed() {
     setPostList(updated);
   };
 
-  // ترتيب
   const sortedPosts = [...postList].sort(
     (a, b) => b.upvotes - a.upvotes
   );
 
-  // 🎯 إدخال اليوزر (ما ينتقل إلا بعد زر/Enter)
   if (!activeUser) {
     return (
       <div style={{ padding: "20px" }}>
@@ -99,7 +89,6 @@ function RedditFeed() {
         Welcome, {activeUser}
       </p>
 
-      {/* 🔄 تغيير المستخدم */}
       <button
         onClick={() => {
           localStorage.removeItem("redditUser");
